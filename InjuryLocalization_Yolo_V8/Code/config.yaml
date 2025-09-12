@@ -1,0 +1,11 @@
+# Absolute path to the dataset's root directory
+path: /content/drive/MyDrive/OT/Injury localization dataset/Injurylocalizationdataset
+
+# Relative paths to the image folders
+train: train/images
+val: val/images
+test: test/images
+
+# Classes
+names:
+  0: hematoma
