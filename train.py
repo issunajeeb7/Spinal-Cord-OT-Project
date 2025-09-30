@@ -110,6 +110,8 @@ def parse_args():
 
 
 def main():
+    # ADD THIS LINE
+    torch.backends.cudnn.enabled = False
     args = parse_args()
 
     cfg = Config.fromfile(args.config)
