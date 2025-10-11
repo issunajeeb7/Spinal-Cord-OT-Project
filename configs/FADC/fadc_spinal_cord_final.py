@@ -16,7 +16,7 @@ model = dict(
     auxiliary_head=dict(
         num_classes=num_classes),
     test_cfg = dict(mode='slide', crop_size=(512, 512), stride=(341, 341)),
-)
+)   
 
 # You can adjust the optimizer and other training parameters here if needed
 # For example, let's set a smaller learning rate for fine-tuning

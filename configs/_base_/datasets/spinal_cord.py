@@ -1,35 +1,27 @@
 # configs/_base_/datasets/spinal_cord.py
 
 dataset_type = 'CustomDataset'
-# Use the absolute path to your dataset
-data_root = 'C:/Users/issu/Documents/OT/fadc_spinal_cord_dataset'
+# This path points to the dataset you just created.
+data_root = '/kaggle/input/fadc-spinal-cord-dataset/fadc_spinal_cord_dataset' 
 
-# Define the classes and palette based on your discovered colors
-# The order of CLASSES must match your class IDs (0, 1, 2...).
+# This is the definitive list of classes and colors from the paper's source code.
+# This will prevent NaN errors.
 CLASSES = (
-    'Dorsal Space',      # 0
-    'Dura',              # 1
-    'CSF',               # 2
-    'Pia',               # 3 - Placeholder, as it was not in your final palette
-    'Spinal Cord',       # 4
-    'Ventral Space',     # 5
-    'Hematoma',          # 6
-    'Dura/Pia complex',  # 7 - Placeholder
-    'Dura/Ventral complex',# 8 - Placeholder
-    'Unknown Gray'       # 9
+    'Dorsal Space',         # 0
+    'Dorsal Dura',          # 1
+    'CSF',                  # 2
+    'Pia',                  # 3
+    'Spinal Cord',          # 4
+    'Ventral Space',        # 5
+    'Hematoma',             # 6
+    'Dura/Pia complex',     # 7
+    'Dura/Ventral complex', # 8
+    'Ventral Dura'          # 9
 )
 
 PALETTE = [
-    [128, 0, 128],   # 0: Dorsal Space
-    [128, 0, 0],     # 1: Dura (using the most common red)
-    [0, 128, 0],     # 2: CSF (using the most common green)
-    [85, 255, 0],    # 3: Pia (placeholder color from original spec)
-    [0, 0, 128],     # 4: Spinal Cord
-    [128, 128, 0],   # 5: Ventral Space
-    [0, 128, 128],   # 6: Hematoma
-    [255, 85, 0],    # 7: Dura/Pia complex (placeholder)
-    [170, 170, 0],   # 8: Dura/Ventral complex (placeholder)
-    [128, 128, 128]  # 9: Unknown Gray
+    [128, 0, 128], [170, 0, 0], [85, 255, 0], [0, 85, 0], [0, 0, 170],
+    [85, 85, 0], [0, 170, 170], [255, 85, 0], [170, 170, 0], [255, 0, 0]
 ]
 
 # --- Standard MMSegmentation data pipeline ---
@@ -65,8 +57,8 @@ test_pipeline = [
         ])
 ]
 data = dict(
-    samples_per_gpu=4, # Lower this to 2 or 1 if you get memory errors
-    workers_per_gpu=2, # For Windows, it's often better to use fewer workers
+    samples_per_gpu=1, # Set to 1 to prevent out-of-memory errors on your laptop
+    workers_per_gpu=2,
     train=dict(
         type=dataset_type,
         data_root=data_root,
@@ -86,7 +78,7 @@ data = dict(
         palette=PALETTE,
         classes=CLASSES,
         img_suffix='.png',
-        seg_map_suffix='.png'),        
+        seg_map_suffix='.png'),
     test=dict(
         type=dataset_type,
         data_root=data_root,
@@ -96,5 +88,4 @@ data = dict(
         palette=PALETTE,
         classes=CLASSES,
         img_suffix='.png',
-        seg_map_suffix='.png'))        
-        
+        seg_map_suffix='.png'))
